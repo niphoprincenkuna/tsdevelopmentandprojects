@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TS Developments and Projects - Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary: #0a2540;
+            --primary-dark: #051525;
+            --primary-light: #1a3a5c;
+            --accent: #2e8fd6;
+            --accent-light: #5cb3f0;
+            --accent-glow: rgba(46, 143, 214, 0.3);
+            --white: #ffffff;
+            --text-light: rgba(255, 255, 255, 0.85);
+            --text-muted: rgba(255, 255, 255, 0.55);
+            --text-dark: #333333;
+            --bg-light: #f8fafc;
+            --border: rgba(46, 143, 214, 0.15);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.2);
+            --transition: all 0.3s ease;
+            --transition-slow: all 0.5s ease;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body { font-family: var(--font); color: var(--text-dark); background: var(--white); line-height: 1.6; overflow-x: hidden; }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+        img { max-width: 100%; height: auto; display: block; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== NAVIGATION ===== */
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 0 24px; background: var(--white); box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; height: 80px; }
+        .logo-link { display: flex; align-items: center; }
+        .logo-img { height: 55px; width: auto; filter: drop-shadow(0 0 8px rgba(46, 143, 214, 0.4)); transition: var(--transition); }
+        .logo-link:hover .logo-img { transform: scale(1.05); }
+        .nav-links { display: flex; align-items: center; gap: 8px; }
+        .nav-links a { color: var(--primary); font-size: 0.9rem; font-weight: 500; padding: 10px 20px; border-radius: 30px; transition: var(--transition); position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 0; height: 2px; background: var(--accent); border-radius: 2px; transition: var(--transition); }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent); background: rgba(46, 143, 214, 0.1); }
+        .nav-links a:hover::after, .nav-links a.active::after { width: 40%; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; }
+        .hamburger span { display: block; width: 25px; height: 2px; background: var(--primary); border-radius: 2px; transition: var(--transition); }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* ===== PAGE HEADER ===== */
+        .page-header { padding: 140px 24px 80px; position: relative; overflow: hidden; background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 50%, var(--primary-light) 100%); }
+        .page-header::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 80% 20%, rgba(46, 143, 214, 0.1) 0%, transparent 50%), radial-gradient(circle at 20% 80%, rgba(46, 143, 214, 0.08) 0%, transparent 50%); }
+        .page-header-content { position: relative; z-index: 1; text-align: center; max-width: 700px; margin: 0 auto; }
+        .page-tag { display: inline-flex; align-items: center; gap: 8px; background: rgba(46, 143, 214, 0.15); border: 1px solid rgba(46, 143, 214, 0.3); padding: 8px 20px; border-radius: 50px; color: var(--accent-light); font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; margin-bottom: 20px; }
+        .page-tag i { color: var(--accent); }
+        .page-header h1 { font-size: 3rem; font-weight: 800; color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+        .page-header p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section { padding: 100px 0; background: var(--white); position: relative; z-index: 5; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+
+        /* Contact Info Side */
+        .contact-info h2 { font-size: 2.2rem; font-weight: 800; color: var(--primary); margin-bottom: 16px; line-height: 1.2; }
+        .contact-info h2 span { color: var(--accent); }
+        .contact-info > p { color: var(--text-dark); opacity: 0.7; font-size: 1rem; line-height: 1.8; margin-bottom: 40px; }
+
+        .contact-cards { display: flex; flex-direction: column; gap: 20px; }
+        .contact-card { display: flex; align-items: flex-start; gap: 20px; background: var(--bg-light); border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 16px; padding: 28px; transition: var(--transition-slow); }
+        .contact-card:hover { transform: translateX(8px); border-color: var(--accent); box-shadow: var(--shadow); }
+        .contact-icon { width: 50px; height: 50px; min-width: 50px; background: linear-gradient(135deg, var(--accent), #1a7bc8); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--white); font-size: 1.2rem; transition: var(--transition); }
+        .contact-card:hover .contact-icon { transform: scale(1.1) rotate(5deg); }
+        .contact-card-text h4 { color: var(--primary); font-size: 1.05rem; font-weight: 600; margin-bottom: 6px; }
+        .contact-card-text p { color: var(--text-dark); opacity: 0.7; font-size: 0.95rem; line-height: 1.5; }
+        .contact-card-text a { color: var(--accent); font-weight: 500; transition: var(--transition); }
+        .contact-card-text a:hover { color: var(--primary); }
+
+        /* WhatsApp Button */
+        .whatsapp-btn { display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #25D366, #128C7E); color: var(--white); padding: 14px 28px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; margin-top: 8px; transition: var(--transition); box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3); border: none; cursor: pointer; font-family: var(--font); }
+        .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5); }
+        .whatsapp-btn i { font-size: 1.2rem; }
+
+        /* Contact Form Side */
+        .contact-form-wrapper { background: linear-gradient(135deg, var(--primary), var(--primary-light)); border-radius: 24px; padding: 50px; position: relative; overflow: hidden; box-shadow: var(--shadow-lg); }
+        .contact-form-wrapper::before { content: ''; position: absolute; top: -50%; right: -30%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(46, 143, 214, 0.15) 0%, transparent 70%); border-radius: 50%; }
+        .form-header { position: relative; z-index: 1; margin-bottom: 30px; }
+        .form-header h3 { color: var(--white); font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+        .form-header p { color: var(--text-muted); font-size: 0.9rem; }
+
+        .contact-form { position: relative; z-index: 1; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; color: var(--text-light); font-size: 0.85rem; font-weight: 500; margin-bottom: 8px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 14px 18px; color: var(--white); font-size: 0.95rem; font-family: var(--font); transition: var(--transition); }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { outline: none; border-color: var(--accent); background: rgba(255, 255, 255, 0.12); box-shadow: 0 0 20px rgba(46, 143, 214, 0.15); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255, 255, 255, 0.35); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .form-group select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 40px; }
+        .form-group select option { background: var(--primary); color: var(--white); }
+
+        .submit-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; background: linear-gradient(135deg, var(--accent), #1a7bc8); color: var(--white); padding: 16px; border-radius: 12px; font-weight: 600; font-size: 1rem; border: none; cursor: pointer; font-family: var(--font); transition: var(--transition); box-shadow: 0 4px 20px rgba(46, 143, 214, 0.4); }
+        .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(46, 143, 214, 0.6); }
+        .submit-btn i { transition: var(--transition); }
+        .submit-btn:hover i { transform: translateX(4px); }
+
+        /* ===== MAP SECTION ===== */
+        .map-section { padding: 0 0 100px; background: var(--white); }
+        .map-container { border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-lg); height: 400px; position: relative; }
+        .map-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-dark), var(--primary)); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+        .map-placeholder i { font-size: 3rem; color: var(--accent); }
+        .map-placeholder h3 { color: var(--white); font-size: 1.3rem; font-weight: 600; }
+        .map-placeholder p { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* ===== FAQ SECTION ===== */
+        .faq-section { padding: 100px 0; background: linear-gradient(180deg, var(--bg-light) 0%, var(--white) 100%); }
+        .faq-header { text-align: center; max-width: 600px; margin: 0 auto 60px; }
+        .faq-header .section-tag { display: inline-block; color: var(--accent); font-size: 0.8rem; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 12px; }
+        .faq-header h2 { font-size: 2.5rem; font-weight: 800; color: var(--primary); margin-bottom: 12px; }
+        .faq-header p { color: var(--text-dark); opacity: 0.6; font-size: 1rem; }
+
+        .faq-grid { max-width: 800px; margin: 0 auto; }
+        .faq-item { background: var(--white); border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 16px; margin-bottom: 16px; overflow: hidden; transition: var(--transition); }
+        .faq-item:hover { box-shadow: var(--shadow); }
+        .faq-question { display: flex; justify-content: space-between; align-items: center; padding: 24px 28px; cursor: pointer; transition: var(--transition); }
+        .faq-question h4 { color: var(--primary); font-size: 1rem; font-weight: 600; padding-right: 20px; }
+        .faq-question i { color: var(--accent); font-size: 0.9rem; transition: var(--transition); flex-shrink: 0; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; }
+        .faq-item.active .faq-answer { max-height: 200px; padding: 0 28px 24px; }
+        .faq-answer p { color: var(--text-dark); opacity: 0.7; font-size: 0.95rem; line-height: 1.7; }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section { padding: 100px 0; position: relative; overflow: hidden; z-index: 5; background: var(--primary-dark); }
+        .cta-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 500px; height: 500px; background: radial-gradient(circle, rgba(46, 143, 214, 0.12) 0%, transparent 70%); border-radius: 50%; }
+        .cta-content { position: relative; z-index: 1; text-align: center; max-width: 700px; margin: 0 auto; }
+        .cta-content h2 { font-size: 2.8rem; font-weight: 800; color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+        .cta-content p { color: var(--text-muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 40px; }
+        .cta-buttons { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+        .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; transition: var(--transition); cursor: pointer; border: none; font-family: var(--font); }
+        .btn-cta-primary { background: linear-gradient(135deg, var(--accent), #1a7bc8); color: var(--white); box-shadow: 0 8px 30px rgba(46, 143, 214, 0.4); }
+        .btn-cta-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(46, 143, 214, 0.55); }
+        .btn-cta-secondary { background: transparent; color: var(--white); border: 2px solid rgba(255, 255, 255, 0.25); padding: 14px 32px; }
+        .btn-cta-secondary:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-3px); }
+
+        /* ===== FLOATING WHATSAPP BUTTON ===== */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; z-index: 9999; }
+        .whatsapp-float-btn { display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, #25D366, #128C7E); color: var(--white); padding: 16px 24px; border-radius: 50px; font-weight: 600; font-size: 0.95rem; box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); transition: var(--transition); border: none; cursor: pointer; font-family: var(--font); animation: whatsappPulse 2s ease-in-out infinite; }
+        .whatsapp-float-btn:hover { transform: translateY(-4px) scale(1.05); box-shadow: 0 10px 35px rgba(37, 211, 102, 0.6); }
+        .whatsapp-float-btn i { font-size: 1.4rem; }
+        .whatsapp-float-btn span { white-space: nowrap; }
+
+        @keyframes whatsappPulse {
+            0%, 100% { box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4); }
+            50% { box-shadow: 0 6px 35px rgba(37, 211, 102, 0.7); }
+        }
+
+        /* ===== FOOTER ===== */
+        .footer { background: var(--primary-dark); padding: 70px 0 25px; position: relative; z-index: 5; border-top: 1px solid rgba(46, 143, 214, 0.08); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 40px; margin-bottom: 40px; }
+        .footer-brand .footer-logo { height: 45px; margin-bottom: 18px; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; max-width: 280px; margin-bottom: 24px; }
+        .social-links { display: flex; gap: 12px; }
+        .social-link { width: 40px; height: 40px; border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.15); display: flex; align-items: center; justify-content: center; color: var(--text-muted); transition: var(--transition); }
+        .social-link:hover { background: var(--accent); border-color: var(--accent); color: var(--white); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(46, 143, 214, 0.3); }
+        .footer-links h4, .footer-contact h4 { color: var(--white); font-size: 0.9rem; font-weight: 600; margin-bottom: 20px; letter-spacing: 1px; text-transform: uppercase; }
+        .footer-links ul li { margin-bottom: 10px; }
+        .footer-links ul li a { color: var(--text-muted); font-size: 0.85rem; transition: var(--transition); display: inline-block; }
+        .footer-links ul li a:hover { color: var(--accent); padding-left: 5px; }
+        .contact-item { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; color: var(--text-muted); font-size: 0.9rem; }
+        .contact-item i { color: var(--accent); font-size: 0.9rem; width: 20px; }
+        .footer-bottom { padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.06); text-align: center; }
+        .footer-bottom p { color: rgba(255, 255, 255, 0.25); font-size: 0.8rem; }
+
+        /* ===== ANIMATIONS ===== */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 50px; }
+            .contact-form-wrapper { max-width: 600px; margin: 0 auto; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; top: 80px; right: -100%; width: 100%; height: calc(100vh - 80px); background: var(--white); flex-direction: column; justify-content: flex-start; padding-top: 40px; transition: var(--transition); box-shadow: 0 10px 40px rgba(0,0,0,0.15); }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1.1rem; padding: 16px 24px; width: 100%; text-align: center; }
+            .hamburger { display: flex; }
+            .page-header h1 { font-size: 2.2rem; }
+            .contact-info h2, .faq-header h2, .cta-content h2 { font-size: 2rem; }
+            .faq-item.active .faq-answer { max-height: 300px; }
+            .footer-grid { grid-template-columns: 1fr; gap: 25px; }
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .btn-cta-primary, .btn-cta-secondary { width: 100%; max-width: 300px; justify-content: center; }
+            .whatsapp-float-btn span { display: none; }
+            .whatsapp-float-btn { padding: 16px; }
+        }
+        @media (max-width: 480px) {
+            .contact-form-wrapper { padding: 30px 24px; }
+            .contact-card { padding: 20px; flex-direction: column; text-align: center; }
+            .contact-icon { margin: 0 auto; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo-link">
+                <img src="assets/logo.png" alt="TS Developments and Projects" class="logo-img">
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services & Pricing</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <span class="page-tag"><i class="fas fa-envelope"></i> Contact Us</span>
+                <h1>Get In Touch</h1>
+                <p>We would love to hear from you. Reach out for inquiries, quotes, or just to say hello.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Info -->
+                <div class="contact-info reveal">
+                    <h2>Let's Start a <span>Conversation</span></h2>
+                    <p>Whether you need a company registration, SARS assistance, or business advice, our team is ready to help. Reach out through any of the channels below.</p>
+
+                    <div class="contact-cards">
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-card-text">
+                                <h4>Email Us</h4>
+                                <p><a href="mailto:tsdevelopmentandprojects@gmail.com">tsdevelopmentandprojects@gmail.com</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div class="contact-card-text">
+                                <h4>Call Us</h4>
+                                <p><a href="tel:0660988779">066 098 8779</a></p>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-card-text">
+                                <h4>Business Hours</h4>
+                                <p>Monday - Friday: 08:00 - 17:00</p>
+                            </div>
+                        </div>
+                        <div class="contact-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-card-text">
+                                <h4>WhatsApp</h4>
+                                <p>Chat with us instantly for quick responses</p>
+                                <a href="https://wa.me/27660988779?text=Hello%20TS%20Developments%20and%20Projects,%20I%20would%20like%20to%20inquire%20about%20your%20services." target="_blank" class="whatsapp-btn">
+                                    <i class="fab fa-whatsapp"></i>
+                                    <span>Chat on WhatsApp</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-wrapper reveal">
+                    <div class="form-header">
+                        <h3>Send Us a Message</h3>
+                        <p>Fill in the form and we will get back to you within 24 hours</p>
+                    </div>
+                    <form class="contact-form" id="whatsappForm">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Interested In</label>
+                            <select id="service" name="service">
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="Company Registration">Company Registration</option>
+                                <option value="NPC Registration">NPC Registration</option>
+                                <option value="SARS Services">SARS Services</option>
+                                <option value="Tax Clearance Certificate">Tax Clearance Certificate</option>
+                                <option value="VAT Registration">VAT Registration</option>
+                                <option value="PAYE Registration">PAYE Registration</option>
+                                <option value="CIDB Registration">CIDB Registration</option>
+                                <option value="COIDA Registration">COIDA Registration</option>
+                                <option value="CSD Registration">CSD Registration</option>
+                                <option value="Accounting & Bookkeeping">Accounting & Bookkeeping</option>
+                                <option value="Amendments & Certificates">Amendments & Certificates</option>
+                                <option value="Other / General Inquiry">Other / General Inquiry</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your requirements..." required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>Send via WhatsApp</span>
+                            <i class="fab fa-whatsapp"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section">
+        <div class="container">
+            <div class="map-container reveal">
+                <div class="map-placeholder">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Serving All of South Africa</h3>
+                    <p>We operate nationwide to serve your business needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-bg"></div>
+        <div class="container">
+            <div class="cta-content reveal">
+                <h2>Have Questions?</h2>
+                <p>Our team is ready to assist you. Reach out via WhatsApp, email, or phone and we will respond promptly.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/27660988779?text=Hello%20TS%20Developments%20and%20Projects,%20I%20have%20a%20question." target="_blank" class="btn btn-cta-primary">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp Us</span>
+                    </a>
+                    <a href="tel:0660988779" class="btn btn-cta-secondary">
+                        <i class="fas fa-phone"></i>
+                        <span>Call Now</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <img src="logo.png" alt="TS Developments and Projects" class="footer-logo">
+                    <p>Your trusted partner for company registrations, SARS services, and comprehensive business solutions in South Africa.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/27660988779" target="_blank" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                        <a href="mailto:tsdevelopmentandprojects@gmail.com" class="social-link"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="services.html">Services & Pricing</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="services.html">Company Registrations</a></li>
+                        <li><a href="services.html">SARS Services</a></li>
+                        <li><a href="services.html">CIDB Registration</a></li>
+                        <li><a href="services.html">Accounting & Bookkeeping</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4>Contact Info</h4>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>tsdevelopmentandprojects@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>066 098 8779</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 TS Developments and Projects. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/27660988779?text=Hello%20TS%20Developments%20and%20Projects,%20I%20would%20like%20to%20inquire%20about%20your%20services." target="_blank" class="whatsapp-float-btn">
+            <i class="fab fa-whatsapp"></i>
+            <span>Chat on WhatsApp</span>
+        </a>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        function revealOnScroll() {
+            const windowHeight = window.innerHeight;
+            const revealPoint = 100;
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - revealPoint) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll();
+
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.parentElement;
+                const isActive = item.classList.contains('active');
+                document.querySelectorAll('.faq-item').forEach(faq => faq.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // WhatsApp Form Submission
+        document.getElementById('whatsappForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+
+            let whatsappText = "Hello TS Developments and Projects,%0A%0A";
+            whatsappText += "I would like to inquire about your services.%0A%0A";
+            whatsappText += "*Name:* " + name + "%0A";
+            whatsappText += "*Email:* " + email + "%0A";
+            if (phone) {
+                whatsappText += "*Phone:* " + phone + "%0A";
+            }
+            if (service) {
+                whatsappText += "*Service:* " + service + "%0A";
+            }
+            whatsappText += "%0A*Message:*%0A" + message;
+
+            const whatsappUrl = "https://wa.me/27660988779?text=" + whatsappText;
+            window.open(whatsappUrl, '_blank');
+        });
+    </script>
+</body>
+</html>
