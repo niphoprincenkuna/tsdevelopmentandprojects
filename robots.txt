@@ -1,0 +1,5 @@
+User-agent: *
+
+Allow: /
+
+Sitemap: https://tsdevelopmentandprojects.co.za/sitemap.xml
